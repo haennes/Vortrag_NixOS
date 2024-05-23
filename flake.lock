@@ -55,6 +55,7 @@
         "flake-utils": "flake-utils",
         "font-awesome": "font-awesome",
         "nixpkgs": "nixpkgs",
+        "term": "term",
         "typix": "typix",
         "typst-packages": "typst-packages"
       }
@@ -71,6 +72,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "term": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716456694,
+        "narHash": "sha256-OgIeOb3FRHkaJtofJNVMjoaP+bqhyw8McNTdqwIIr/E=",
+        "owner": "haennes",
+        "repo": "term",
+        "rev": "b88a8cbfc6f013f7421282627b479dca6cbf6ef1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "haennes",
+        "repo": "term",
         "type": "github"
       }
     },

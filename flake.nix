@@ -18,6 +18,10 @@
       url = "github:FortAwesome/Font-Awesome";
       flake = false;
     };
+    term = {
+      url = "github:haennes/term";
+      flake = false;
+    };
     # Example of downloading icons from a non-flake source
     # font-awesome = {
     #   url = "github:FortAwesome/Font-Awesome";
@@ -25,7 +29,7 @@
     # };
   };
 
-  outputs = inputs@{ nixpkgs, typix, flake-utils, font-awesome, ... }:
+  outputs = inputs@{ nixpkgs, typix, flake-utils, font-awesome, term, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         typstPackagesSrc = pkgs.symlinkJoin {
@@ -58,7 +62,6 @@
            (lib.fileset.fromSource (typixLib.cleanTypstSource ./.))
            ./icons
            ./pictures
-           ./term
           ];
         };
         #typstDest = "main.pdf";
@@ -77,7 +80,10 @@
                dest = "icons";
                src = "${font-awesome}/svgs/regular";
             }
-
+            {
+               dest = "term";
+               src = "${term}";
+            }
           ];
         };
 
@@ -99,13 +105,13 @@
         watch-script = typixLib.watchTypstProject (commonArgs // {
           #typstWatchCommand = "${pkgs.typst-live}/bin/typst-live";
           typstWatchCommand = pkgs.writeShellScript "typst-live.sh" ''
-          ${pkgs.typst-live}/bin/typst-live ${commonArgs.typstSource} 
+          ${pkgs.typst-live}/bin/typst-live ${commonArgs.typstSource} --port 6001
           '';
         });
        #present-script = typixLib.watchTypstProject (commonArgs // {
        #   #typstWatchCommand = "${pkgs.typst-live}/bin/typst-live";
        #   typstWatchCommand = pkgs.writeShellScript "typst-live.sh" ''
-       #   ${pkgs.typst-live}/bin/typst-live ${commonArgs.typstSource} 
+       #   ${pkgs.typst-live}/bin/typst-live ${commonArgs.typstSource}
        #   '';
        # });
 
@@ -114,14 +120,14 @@
           #typstWatchCommand = "${pkgs.typst-live}/bin/typst-live";
           typstWatchCommand = pkgs.writeShellScript "typst-present.sh" ''
           ${pkgs.typst}/bin/typst compile ${commonArgs.typstSource}
-          ${pkgs.pdfpc}/bin/pdfpc -s ${commonArgs.typstOutput} 
+          ${pkgs.pdfpc}/bin/pdfpc -s ${commonArgs.typstOutput}
           '';
           });
          present-script-multi-monitor = typixLib.watchTypstProject (commonArgs // {
           #typstWatchCommand = "${pkgs.typst-live}/bin/typst-live";
           typstWatchCommand = pkgs.writeShellScript "typst-present.sh" ''
           ${pkgs.typst}/bin/typst compile ${commonArgs.typstSource}
-          ${pkgs.pdfpc}/bin/pdfpc ${commonArgs.typstOutput} 
+          ${pkgs.pdfpc}/bin/pdfpc ${commonArgs.typstOutput}
           '';
           });
 
