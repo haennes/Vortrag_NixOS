@@ -1,16 +1,58 @@
 // Get Polylux from the official package repository
-#import "@preview/codly:0.2.0": *
+#import "@preview/codly:1.3.0": *
 #import "term/term.typ": term
-#import "@preview/polylux:0.3.1": *
+#import "@preview/polylux:0.4.0": *
+#import "@preview/metropolis-polylux:0.1.0" as metropolis
+#import metropolis: new-section, focus
+#import toolbox: side-by-side,pdfpc
 #import "@preview/cades:0.3.0": qr-code
-#import themes.metropolis: *
+//#import themes.metropolis: *
 
 #let handout = true
-#show: metropolis-theme.with(footer: [NixOS])
+#show: metropolis.setup
+//#show: metropolis-theme.with(footer: [NixOS])
 // Make the paper dimensions fit for a presentation and the text larger
 #set page(paper: "presentation-16-9")
 #set text(size: 25pt)
 //#show link: underline
+//
+#let m-dark-teal = rgb("#23373b")
+#let m-light-brown = rgb("#eb811b")
+#let alert = text.with(fill: m-light-brown)
+#let title-slide(
+  title: [],
+  subtitle: none,
+  author: none,
+  date: none,
+  extra: none,
+) = {
+  let content = {
+    set text(fill: m-dark-teal)
+    set align(horizon)
+    block(width: 100%, inset: 2em, {
+      text(size: 1.3em, strong(title))
+      if subtitle != none {
+        linebreak()
+        text(size: 0.9em, subtitle)
+      }
+      line(length: 100%, stroke: .05em + m-light-brown)
+      set text(size: .8em)
+      if author != none {
+        block(spacing: 1em, author)
+      }
+      if date != none {
+        block(spacing: 1em, date)
+      }
+      set text(size: .8em)
+      if extra != none {
+        block(spacing: 1em, extra)
+      }
+
+    })
+  }
+
+  slide(content)
+}
 
 #let icon(codepoint) = {
   box(
@@ -23,7 +65,7 @@
 
 #show: codly-init.with()
 #codly(
-  zebra-color: white,
+  //zebra-color: white,
   languages: (
   nix: (name: "Nix", icon: icon("pictures/nix-snowflake-colours.svg"), color: rgb("#CE412B"))
 ))
@@ -38,14 +80,18 @@
   subtitle: "Declarative builds and deployments",
   date: datetime.today().display(),
   extra: "Ansible? Nein Danke!",
+
 )
+
+  #pdfpc.speaker-note("This is a note that only the speaker will see.")
 ]
 //[#box[#image("./pictures/nix-snowflake-colours.svg", width: 20%)]]
 //#slide(title: "Inhaltsverzeichnis")[
 //  #metropolis-outline
 //]
   #show link: set text(blue)
-#slide(title: "Nix vs NixOS")[
+#slide()[
+= Nix vs NixOS
   #side-by-side(columns: (2fr, 1fr))[
   - Nix:
     #only("2-",[
@@ -65,9 +111,10 @@
 
 ]
 
-#new-section-slide([Nix])
+#new-section([Nix])
 
-#slide(title: "Features von Nix (package manager)")[
+#slide()[
+= Features von Nix (package manager)
   - alle Programme liegen in /nix/store
     #only("2, 4-", [
     - weniger suchen
@@ -85,11 +132,12 @@
   - upgrades und rollbacks #only("6-", alert([später: Demo... also wenn genügend Zeit ist]))
 ]
 
-#new-section-slide([Nix shells])
+#new-section([Nix shells])
 
-#focus-slide([Warum brauch ich das?])
+#focus([Warum brauch ich das?])
 
-#slide(title: "Warum brauch ich das?")[
+#slide()[
+= Warum brauch ich das?
    Hey, cooles Projekt, kann ich da mitprogrammieren?
  #align(right, only("2-", [
    Ja klar gerne, du musst dir nur \
@@ -99,9 +147,10 @@
  \~ #link("https://github.com/TheOpenSpaceProgram/osp-magnum")[osp-magnum: A spaceship game]]))
 ]
 
-#focus-slide([WTF, Nein])
+#focus([WTF, Nein])
 
-#slide(title: "Wie nutze ich sowas?")[
+#slide()[
+= Wie nutze ich sowas?
   + *EINER* schreibt eine "flake.nix" #only("2")[oder "shell.nix"]
   #only("2")[
   #enum.item(2)[
@@ -118,15 +167,16 @@
   ]
 ]
 
-#focus-slide[
+#focus[
   #grid(columns: 2, gutter: 1em, [Mega], box(image(height: 1em, "icons/face-grin-stars.svg")))
 ]
-#focus-slide[ Warum nicht Alles so konfigurieren? ]
+#focus[ Warum nicht Alles so konfigurieren? ]
 //#show: metropolis-theme.with(footer: [sh <(curl -L https://nixos.org/nix/install) -\-daemon])
 
-#new-section-slide[Nun zum eigentlichen Thema *NixOS*]
+#new-section[Nun zum eigentlichen Thema *NixOS*]
 
-#slide(title: "Features")[
+#slide()[
+= Features
   - alle Programme liegen in /nix/store
   - vollständige dependencies von Paketen / pureness
   - *nicht-Admins* können Pakete installieren
@@ -134,7 +184,8 @@
   - konfiguriere dein gesamtes System in #link("https://github.com/haennes/dotfiles")[*einer Datei*]
 ]
 
-#slide(title: "Vorteile")[
+#slide()[
+= Vorteile
     - Ein Dateiformat um Alles zu konfigurieren \ #only("2")[ vom Bootloader über die installierte Software bis hin zu deiner VPN ]
     #only("3-")[
     - Teile deine Konfiguration mit anderen Systemen #only("4-")[oder auch Menschen]
@@ -143,14 +194,16 @@
     #only("5-")[
     - #only("5-")[System kaputt?] #only("6")[rollbacks]
     ]
-    #only("6-")[$=>$ keine Angst vor updates]
+    #only("6-")[#sym.arrow.double keine Angst vor updates]
   ]
 
-#slide(title: "Vorteile")[
+#slide()[
+= Vorteile
   #image(width: 100%, fit: "contain", "pictures/Packages_per_Distro.png")
 ]
 
-#slide(title: "Nachteile")[
+#slide()[
+= Nachteile
   #side-by-side[
   - Lernkurve...
   - dynamische libraries schwieriger
@@ -159,7 +212,8 @@
   ]
 ]
 
-#slide(title: "kleiner Auszug aus einer Konfiguration")[
+#slide()[
+= kleiner Auszug aus einer Konfiguration
   #set text(size: 15pt)
   #side-by-side[
     ```nix
@@ -193,9 +247,10 @@
 ]
 
 
-#new-section-slide[Flakes]
+#new-section[Flakes]
 
-#slide(title: [#link("https://nixos.wiki/wiki/Flakes")[Was sind Flakes?]])[
+#slide()[
+  #heading([#link("https://nixos.wiki/wiki/Flakes")[Was sind Flakes?]])
   - spezielle Nix expressions
   - können folgendes beschreiben:
     - Systeme
@@ -205,7 +260,8 @@
 
 ]
 //#slide(title: [Beispiel])[#image("pictures/flake.png")]
-#slide(title: [Beispiel])[
+#slide()[
+= Beispiel
 #set text(19pt)
 ```nix
 {
@@ -222,12 +278,13 @@
 ]
 
 
-#new-section-slide([Wie nutzt man Nix])
+#new-section([Wie nutzt man Nix])
 
-#focus-slide[#text(size: 30pt, [sh <(curl -L https://nixos.org/nix/install) -\-daemon])]
+#focus[#text(size: 30pt, [sh <(curl -L https://nixos.org/nix/install) -\-daemon])]
 
 
-#slide(title: "Weiterführende Links")[
+#slide()[
+= Weiterführende Links
  #link("https://nixos.org/")[Nix & NixOS | Declarative builds and deployments]
  #link("https://www.youtube.com/watch?v=CwfKlX3rA6E")[NixOS: Everything Everywhere All At Once - YouTube]
  #link("https://www.youtube.com/watch?v=a67Sv4Mbxmc")[Ultimate NixOS Guide | Flakes | Home-manager - YouTube]
@@ -235,7 +292,8 @@
  #link("https://nixos.wiki/wiki/Main_Page")[NixOS Wiki]
 ]
 
-#slide(title: ":wq")[
+#slide()[
+= :wq
   #align(center)[
     #figure(caption: [PDF zum Download], numbering: none)[#qr-code("https://github.com/haennes/Vortrag_NixOS")]
   ]
