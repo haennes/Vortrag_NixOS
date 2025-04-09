@@ -111,7 +111,7 @@
       watch-script = typixLib.watchTypstProject commonArgs;
 
       present_fn = opts: pkgs.writeShellScriptBin "typst-present.sh" ''
-          ${pkgs.pdfpc}/bin/pdfpc ${opts} ${build-drv} -R ${build-pdfpc}
+          ${pkgs.pdfpc}/bin/pdfpc -W ${opts} ${build-drv} -R ${build-pdfpc}
         '';
       present = present_fn "-s";
       present_mm = present_fn "";
@@ -120,7 +120,10 @@
         inherit build-drv build-script watch-script;
       };
 
-      packages.default = present_mm;
+      packages = {
+        default = present_mm;
+        inherit present;
+      };
       apps = {
         default = flake-utils.lib.mkApp{
           drv = present;

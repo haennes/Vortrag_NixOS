@@ -109,6 +109,7 @@
     #align(right)[#box[#image("./pictures/nix-snowflake-colours.svg", width: 100%)]]
   ]
 
+  #pdfpc.speaker-note("im folgend zuerst package manager und Sprache")
 ]
 
 #new-section([Nix])
