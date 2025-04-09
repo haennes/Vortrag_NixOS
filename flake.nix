@@ -67,7 +67,7 @@
 
 { name =  "codly";version = "1.3.0"; hash = "sha256-WcqvySmSYpWW+TmZT7TgPFtbEHA+bP5ggKPll0B8fHk=";}
 { name =  "polylux";version = "0.4.0"; hash = "sha256-4owP2KiyaaASS1YZ0Hs58k6UEVAqsRR3YdGF26ikosk=";}
-{ name =  "cades";version="0.3.0"; hash = "sha256-ql745M6B7mT04/sAQabccMljJPeDzoNxnkejqUClqBc=";}
+{ name =  "cades";version="0.3.0"; hash = "sha256-2pXkUeY7PHp7Atstt7jK1X1/4wsFJ9uBygxXce/fGN0=";}
 
 
 { name =  "metropolis-polylux";version="0.1.0"; hash = "sha256-3ljITD4tYTrO777C/cyI/1KYdgcBQ+F0Ki1X4ze8zG8=";}
