@@ -86,7 +86,7 @@
 
           typstCompileCommand = pkgs.writeShellScript "t" ''
           typst compile $@
-          ${pkgs.polylux2pdfpc}/bin/polylux2pdfpc --root . ${./main.typ}
+          ${pkgs.polylux2pdfpc}/bin/polylux2pdfpc --root . ${src}./main.typ
           cp main.pdfpc $out
           '';
         });
