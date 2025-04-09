@@ -75,7 +75,7 @@
 #[
   #show link: set text(blue)
   #title-slide(
-  author: [#link("https://github.com/haennes")[haennes], Ole (yeet)],
+  author: [#link("https://github.com/haennes")[haennes aka borbitter], Ole (yeet)],
   title: [#link("https://nixos.org/")[Nix(OS)]],
   subtitle: "Declarative builds and deployments",
   date: datetime.today().display(),
