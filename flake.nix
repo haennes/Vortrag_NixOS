@@ -80,13 +80,20 @@
         });
 
 
-      build-pdfpc = typixLib.buildTypstProject (commonArgs
+      build-pdfpc = typixLib.mkTypstDerivation (commonArgs
         // {
           inherit src unstable_typstPackages;
 
-          typstCompileCommand = pkgs.writeShellScript "t" ''
-          typst compile $@
-          ${pkgs.polylux2pdfpc}/bin/polylux2pdfpc --root . ${src}./main.typ
+          buildPhaseTypstCommand = pkgs.writeShellScript "t" ''
+          set -xeu
+          echo a: $src
+          echo b: $out
+          echo c: $(pwd)
+          echo d: ${src}
+          echo e: ${build-drv}
+          cp -R ${term} term
+          echo "$@"
+          ${pkgs.polylux2pdfpc}/bin/polylux2pdfpc --root . ./main.typ
           cp main.pdfpc $out
           '';
         });

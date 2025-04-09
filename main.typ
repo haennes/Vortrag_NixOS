@@ -83,7 +83,7 @@
 
 )
 
-  #pdfpc.speaker-note("This is a note that only the speaker will see.")
+  #pdfpc.speaker-note("CCCCCCCCCCCc")
 ]
 //[#box[#image("./pictures/nix-snowflake-colours.svg", width: 20%)]]
 //#slide(title: "Inhaltsverzeichnis")[
