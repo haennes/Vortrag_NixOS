@@ -1,5 +1,5 @@
 // Get Polylux from the official package repository
-#import "@preview/codly:1.3.0": *
+#import "@preview/codly:1.2.0": *
 #import "term/term.typ": term
 #import "@preview/polylux:0.4.0": *
 #import "@preview/metropolis-polylux:0.1.0" as metropolis
