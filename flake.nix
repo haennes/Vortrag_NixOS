@@ -60,7 +60,6 @@
           root = ./.;
           fileset = lib.fileset.unions [
            (lib.fileset.fromSource (typixLib.cleanTypstSource ./.))
-           ./icons
            ./pictures
           ];
         };
@@ -108,13 +107,6 @@
           ${pkgs.typst-live}/bin/typst-live ${commonArgs.typstSource} --port 6001
           '';
         });
-       #present-script = typixLib.watchTypstProject (commonArgs // {
-       #   #typstWatchCommand = "${pkgs.typst-live}/bin/typst-live";
-       #   typstWatchCommand = pkgs.writeShellScript "typst-live.sh" ''
-       #   ${pkgs.typst-live}/bin/typst-live ${commonArgs.typstSource}
-       #   '';
-       # });
-
 
          present-script = typixLib.watchTypstProject (commonArgs // {
           #typstWatchCommand = "${pkgs.typst-live}/bin/typst-live";

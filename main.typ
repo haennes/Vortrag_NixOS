@@ -33,7 +33,7 @@
 #[
   #show link: set text(blue)
   #title-slide(
-  author: [#link("https://github.com/haennes")[haennes], Hannes (random)],
+  author: [#link("https://github.com/haennes")[haennes], Ole (yeet)],
   title: [#link("https://nixos.org/")[Nix(OS)]],
   subtitle: "Declarative builds and deployments",
   date: datetime.today().display(),
@@ -67,7 +67,7 @@
 
 #new-section-slide([Nix])
 
-#slide(title: "Features von Nix")[
+#slide(title: "Features von Nix (package manager)")[
   - alle Programme liegen in /nix/store
     #only("2, 4-", [
     - weniger suchen
@@ -237,6 +237,6 @@
 
 #slide(title: ":wq")[
   #align(center)[
-    #figure(caption: [PDF zum Download], numbering: none)[#qr-code("https://cloud.hannses.de/s/dn8RiEtbgq7K9aK")]
+    #figure(caption: [PDF zum Download], numbering: none)[#qr-code("https://github.com/haennes/Vortrag_NixOS")]
   ]
 ]
